@@ -1,5 +1,5 @@
-## SPOT-A-Rabbit
-Segmentation propagation on target as a Rabbit
+## SPOT-A-NeonatalRabbit
+Segmentation propagation on target as a Neonatal Rabbit
 
 
 **Coming soon**
