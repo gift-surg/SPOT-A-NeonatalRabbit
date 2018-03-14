@@ -1,6 +1,6 @@
-# SPOT-A-NeonatalRabbit: 
+# SPOT-A-NeonatalRabbit
 
-**Segmentations Propagation On Target (...as a Neonatal Rabbit).**
+**Segmentations Propagation On Target (...as a Neonatal Rabbit)**
 
 This is an open-source repository written in Python 2 and based on [LABelsToolkit][labelstoolkit], [NiftyReg][niftyreg], 
 [NiftySeg][niftyseg] and [NifTK][niftk] 
