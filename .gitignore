@@ -1,0 +1,15 @@
+__pycache__
+*.pyc
+*.png
+.idea
+*.npy
+*_old.py
+z_*
+TODO.txt
+opener.py
+z_pipeline_draft
+nohup.out
+Job*
+output
+test_data
+*.egg-info

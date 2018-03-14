@@ -1,0 +1,90 @@
+
+-----> PROCEDURE: PROPAGATION <-----
+
+--> AFFINE propagation
+
+The single target (fixed image in the registration) for the whle procedure is:
+ > target_aff_<sj_target>_mod.nii.gz       # can be a stack or a single image.
+ > target_aff_<sj_target>_reg_mask.nii.gz  # can be a stack or a single image.
+
+For each sj in the Atlas:
+
+Part 0:
+    Prepare the moving images:
+    > moving_aff_<sj>_mod.nii.gz 
+    > moving_aff_<sj>_reg_mask.nii.gz 
+
+Part 1:
+    propagation_controller : Aff_alignment
+    Results are the moving_aff_mod warped and the affine transformation:
+    > aff_trans_<sj>_on_<sj_target>.txt
+    > moving_aff_warp_<sj>_on_<sj_target>_mod.nii.gz
+
+Part 2:
+    propagation_controller : Propagate_aff_to_mask
+    Result is the moving mask warped according to the affine transformation:
+    > moving_aff_warp_<sj>_on_<sj_target>_reg_mask.nii.gz
+
+Part 3:
+    propagation_controller : Propagate_aff_to_segm
+    Result is the moving segmentation warped according to the affine transformation:
+    > segm_moving_aff_warp_<sj>_on_<sj_target>.nii.gz
+
+
+--> NON RIGID PROPAGATION
+
+Prepare the target images (mod and mask):
+The single target (fixed image in the registration) for the whle procedure is:
+ > target_nrigid_<sj_target>_mod.nii.gz       # can be a stack or a single image,
+ > target_nrigid_<sj_target>_reg_mask.nii.gz  # can be a stack or a single image.
+
+For each sj in the Atlas:
+
+Part 0:
+    Prepare the moving images (mod and mask):
+    Results are 
+    > moving_nrigid_<sj>_on_<sj_target>_mod.nii.gz
+    > moving_nrigid_<sj>_on_<sj_target>_reg_mask.nii.gz
+    
+Part 1:
+    Re-tune input and output according to selected options.
+
+    -- If modalities affine and nrig are identical, then just copy the affine target with the new nrigid name.
+    -- If are not identical, warp and stack the new selected modalities and masks.
+
+    IF get slim mask - Use the segm_moving_aff_warp_<sj>_on_<sj_target>.nii.gz to create the new
+    mask, multiplying its binarisation for each slice of the current mask.
+    Result is
+    > moving_nrigid_<sj>_on_<sj_target>_reg_mask_SLIM.nii.gz
+
+    IF get differential BFC of some modalities: 
+    outputs are:
+    > target_nrigid_<sj_target>_mod_BFC.nii.gz  # target updated with the BFC slice
+    > moving_nrigid_<sj>_on_<sj_target>_mod_BFC.nii.gz  # moving updated with the BFC slice
+
+    IF N_rigid_same_mask_moving is True
+    in the end the fixed mask is used as the moving mask. more robust to noise. The registration is completely harnessed.
+
+Part 2:
+    Apply non-rigid registration step, selecting the input from the options above.
+    Outputs are
+    > cpp_nrigid_warp_<sj>_on_<sj_target>.nii.gz
+    > moving_nrigid_warp_<sj>_on_<sj_target>_mod.nii.gz
+
+Part 3: 
+    propagate to other modalities and segmentation:
+    the cpp is propagated to the other modalities. Results are
+    > segm_moving_nrigid_warp_<sj>_on_<sj_target>.nii.gz
+    > moving_nrigid_warp_<sj>_on_<sj_target>_reg_mask.nii.gz
+
+Part 4:
+    Smoothing final segmentation IF smol factor is large
+    > segm_moving_nrigid_warp_<sj>_on_<sj_target>_SMOL.nii.gz
+
+-- > PROPAGATION STACK:
+
+Takes the correct output of the warping and the propagation to the segmentaiton 
+and it stack them over:
+    > <sj_target>_stack_warp_segm_<TAG>.nii.gz
+    > <sj_target>_stack_warp_segm_<TAG>.nii.gz
+    (are the only one starting with numbers in the intermediate folder as outcome of the PROPAGATION)
