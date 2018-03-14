@@ -97,3 +97,4 @@ if __name__ == '__main__':
                 'Check under {} to see a record of the parameter you selected.\n'.format(
                     jph(PATH_TARGETS, spot_sj.arch_segmentations_name_folder , spot_sj.arch_automatic_segmentations_name_folder),
                     jph(PATH_DIR, ), 3)
+    print(final_msg)

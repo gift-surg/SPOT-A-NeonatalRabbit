@@ -23,6 +23,7 @@ from LABelsToolkit.tools.phantoms_generator.generate_phantom_multi_atlas import 
 
 from LABelsToolkit.tools.caliber.distances import global_dice_score
 
+
 # parameters
 PATH_DIR = jph(os.path.dirname(os.path.realpath(__file__)), 'test_data')
 PATH_MULTI_ATLAS = jph(PATH_DIR, 'MultiAtlas')
@@ -79,7 +80,7 @@ def test_standard_experiment_with_phantom():
     spot_sj.propagation_options['Affine_reg_masks'] = ()  # if (), there is a single mask for all modalities
     spot_sj.propagation_options['Affine_parameters'] = ' -speeeeed '
     spot_sj.propagation_options['N_rigid_modalities'] = ('mod1', 'mod2')  # if empty, no non-rigid step.
-    spot_sj.propagation_options['N_rigid_reg_masks'] = ()  # if [], same mask for all modalities
+    spot_sj.propagation_options['N_rigid_reg_masks'] = ()  # if (), same mask for all modalities
     spot_sj.propagation_options['N_rigid_slim_reg_mask'] = True
     spot_sj.propagation_options['N_rigid_mod_diff_bfc'] = ('mod2',)  # empty list no diff bfc. - put a comma!!
     spot_sj.propagation_options['N_rigid_parameters'] = ' -vel -be 0.5 -ln 6 -lp 2  -smooR 1.5 -smooF 1.5 '
@@ -132,10 +133,10 @@ def test_standard_experiments_with_phantom_broken_input_tag():
     target_name = '{}01'.format(TARGET_NAME_SUFFIX)
 
     with assert_raises(TypeError):
-        spot_sj = SpotDS(atlas_pfo=PATH_MULTI_ATLAS,
-                         target_pfo=PATH_TARGETS,
-                         target_name=target_name,
-                         parameters_tag=None)  # error here
+        SpotDS(atlas_pfo=PATH_MULTI_ATLAS,
+               target_pfo=PATH_TARGETS,
+               target_name=target_name,
+               parameters_tag=None)  # error here
 
     spot_sj = SpotDS(atlas_pfo=PATH_MULTI_ATLAS,
                      target_pfo=PATH_TARGETS,

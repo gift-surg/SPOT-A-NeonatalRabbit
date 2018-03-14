@@ -15,7 +15,6 @@ if __name__ == '__main__':
                      target_name=target_name,
                      parameters_tag='test')
 
-
     # Template parameters:
     spot_sj.atlas_name = 'MANRround3'  # Multi Atlas Newborn Rabbit
     spot_sj.atlas_list_charts_names = ['1201', '1203', '1305', '1404', '1507', '1510', '1702', '1805', '2002', '2502', '3301', '3404']
