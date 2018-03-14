@@ -13,23 +13,8 @@ if __name__ == '__main__':
     spot_sj = SpotDS(atlas_pfo=jph(root_rabbit, 'A_atlas'),  # here path to the folder with the atlas.
                      target_pfo=jph(root_rabbit, 'A_data/PTB/ex_vivo/{0}/stereotaxic'.format(target_name)),
                      target_name=target_name,
-                     parameters_tag='P2')
+                     parameters_tag='test')
 
-    '''
-    Tag-method correspondence. Check SPOT_parameters_record.txt for confirmation.
-    'P1' -> Mono modal both on the affine and non-rigid, with non-rigid + BFC differentials.
-    'P1' -> Mono modal both on the affine and non-rigid, with non-rigid + NO BFC.
-    'P2' -> Multi modal both on the affine and non-rigid, with non-rigid and with BFC.
-    'Test0' -> test with reduced atlas. all on T1 + BFC.
-    'Test1' -> test with reduced atlas. all T1, no BFC yes slim mask and smol.
-    'Test11' -> test with reduced atlas. T1 only affine no BFC no slim mask and no smol.
-    'Test111' -> test with reduced atlas. T1 affine and non-rigid no BFC YES slim mask and no smol.
-    'TestA' -> test with reduced atlas. T1, FA affine and non-rigid no BFC Yes slim mask and no smol.
-    'Test2' -> test with reduced atlas. T1 FA for the affine, T1 only for the nrigid. no slim mask, no smol.
-    'Test3' -> test with reduced atlas. T1 for the affine, T1, FA, S0 for the nrigid. no BFC. no slim mask, no smol.
-    'Test4' -> test with reduced atlas. T1, S0 for the affine, T1, S0, FA for the nrigid. BFC for the T1. no slim mask, no smol.
-    'Test5' -> test with reduced atlas. T1, S0 for the affine, T1, S0, FA for the nrigid. BFC for the T1 and S0. no slim mask, no smol.
-    '''
 
     # Template parameters:
     spot_sj.atlas_name = 'MANRround3'  # Multi Atlas Newborn Rabbit

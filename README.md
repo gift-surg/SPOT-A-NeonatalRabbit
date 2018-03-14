@@ -19,8 +19,6 @@ propagation and label fusion pipelines.
 * Repository for the Rabbit Brain Mutli-Atlas benchmarking - Coming soon 
 * Documentation with the protocol employed in creating the Rabbit Brain Mutli-Atlas - Coming soon
 
-
-
 ## Getting started
 
 + Requirements
@@ -42,11 +40,7 @@ propagation and label fusion pipelines.
         ```
         
 + Examples
-    - Some python modules with the examples are stored under [examples folder][examplesfolder]
-    - More examples can be found in the repository where this code was used to create and validate the multi-atlas segmentation.
-    - To run the code with a lightweight and customisable multi-atlas, a synthetic multi-atlas can be generated with [LABelsToolkit][labelstoolkit]
-    as proposed in the testing under the [testing folder][testingfolder]
-
+    - See the [examples folder][examplesfolder] and the [wiki page][wikipage]
 
 ## Code testing
 + Unit testing with [nosetest][nosetest]. 
@@ -85,3 +79,4 @@ feature requests and code re-factoring and re-styling.
 [licence]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/LICENCE.txt
 [nosetest]: http://pythontesting.net/framework/nose/nose-introduction/
 [virtualenvironment]: http://docs.python-guide.org/en/latest/dev/virtualenvs/
+[wikipage]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/wiki
