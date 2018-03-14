@@ -39,7 +39,7 @@ obtain a final (deterministic or probabilistic) segmentation.
 ## How to use
 
 + Requirements
-    - Python 2 (and Python 2 **only** for the current release).
+    - Python 2 (**Python 2 only** for the current release).
     - Libraries in the textfile [requirements.txt][requirementstxt].
     - [LABelsToolkit][labelstoolkit]
     - [NiftyReg][niftyreg] 
@@ -47,7 +47,7 @@ obtain a final (deterministic or probabilistic) segmentation.
     - [NifTK][niftk] (only if the differential bias field correction is used in the non-rigid registration)
 
 + Installation
-    - We recommend to install the software in development mode, inside a python [virtual-environment][] with the following commands.
+    - We recommend to install the software in development mode, inside a python [virtual-environment][virtualenvironment] with the following commands.
         ```
         cd <folder where to clone the code>
         git clone https://github.com/SebastianoF/SPOT-A-NeonatalRabbit.git
@@ -100,3 +100,4 @@ feature requests and code re-factoring and re-styling.
 [mrira]: https://github.com/gift-surg/MRImultiAtlasForNeonatalRabbitBrain
 [licence]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/LICENCE
 [nosetest]: http://pythontesting.net/framework/nose/nose-introduction/
+[virtualenvironment]: http://docs.python-guide.org/en/latest/dev/virtualenvs/
