@@ -10,37 +10,22 @@ Default parameters are tuned to work in particular for the Newborn Rabbit Multi-
 [GIFT-Surg project][giftsurg] in collaboration between University College London (UK) and 
 Katholische Universitat  Leuve (Belgium).
  
-Tuning the paths and the parameters the same software can be used as a framework to automatise general segmentation 
-propagation and label fusion pipeline.
+Via parameters tuning, this software can be used as a framework to automatise general segmentation 
+propagation and label fusion pipelines.
 
 ## Material related to Neonatal Rabbit Brain Mutli-Atlas:
 
 * [MRI Neonatal Rabbit Brain Mutli-Atlas][mrira] - Coming soon on Zenodo
-* Repository for Mutli-Atlas benchmarking - Coming soon 
-* Documentation with the protocol for the Mutli-Atlas creation - Coming soon
+* Repository for the Rabbit Brain Mutli-Atlas benchmarking - Coming soon 
+* Documentation with the protocol employed in creating the Rabbit Brain Mutli-Atlas - Coming soon
 
-## Nomenclatures:
 
-**Segmentation:** (of an MRI acqusition) manual or automatic annotation of the given acquisition, where at each
- voxel is assigned a label corresponding to an anatomical region.
- 
-**Labels descriptor:** file containing the correspondences between the labels of a segmentation and the anatomical region.
 
-**Atlas:** MRI acquisition (one or more modality) of the same subject with the anatomical segmentation produced according to a protocol.
-
-**Multi-Atlas:** set of atlases sharing the acquisition and segmentation protocol.
-
-**Target:** atlas where the segmentation is missing.
-
-**Segmentation Propagation and Label Fusion:** algorithmic method to infer the missing segmentation
-of a target propagating the segmentations of a Multi-Atlas and then fusing the labels together, to
-obtain a final (deterministic or probabilistic) segmentation.
-
-## How to use
+## Getting started
 
 + Requirements
-    - Python 2 (**Python 2 only** for the current release).
-    - Libraries in the textfile [requirements.txt][requirementstxt].
+    - Python 2 (**Python 2 only** for the current release)
+    - Libraries in the textfile [requirements.txt][requirementstxt]
     - [LABelsToolkit][labelstoolkit]
     - [NiftyReg][niftyreg] 
     - [NiftySeg][niftyseg] 
@@ -87,7 +72,6 @@ feature requests and code re-factoring and re-styling.
 + The upcomging documentation with provide the full list of authors and acknowledgments.
 
 
-
 [giftsurg]: http://www.gift-surg.ac.uk
 [niftyreg]: http://cmictig.cs.ucl.ac.uk/wiki/index.php/NiftyReg
 [niftyseg]: http://cmictig.cs.ucl.ac.uk/research/software/software-nifty/niftyseg
@@ -96,8 +80,8 @@ feature requests and code re-factoring and re-styling.
 [requirementstxt]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/requirements.txt
 [examplesfolder]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/examples
 [testingfolder]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/tests
-[contributionguideline]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/tests
+[contributionguideline]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/CONTRIBUTE.md
 [mrira]: https://github.com/gift-surg/MRImultiAtlasForNeonatalRabbitBrain
-[licence]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/LICENCE
+[licence]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/LICENCE.txt
 [nosetest]: http://pythontesting.net/framework/nose/nose-introduction/
 [virtualenvironment]: http://docs.python-guide.org/en/latest/dev/virtualenvs/
