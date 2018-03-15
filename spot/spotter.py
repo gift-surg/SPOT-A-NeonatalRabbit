@@ -70,6 +70,9 @@ class SpotDS(object):
         self.propagation_options['N_rigid_slim_reg_mask']  = False
         self.propagation_options['N_rigid_mod_diff_bfc']   = ('T1', )  # empty list no diff bfc.
         self.propagation_options['N_rigid_parameters']     = '  -vel -be 0.5 -ln 6 -lp 4  -smooR 0.07 -smooF 0.07 '
+        self.propagation_options['N_rigid_same_mask_moving'] = True
+        self.propagation_options['N_reg_mask_target']      = 0  # 0 roi_mask, 1 reg_mask
+        self.propagation_options['N_reg_mask_moving']      = 1  # 0 roi_mask, 1 reg_mask
         self.propagation_options['Final_smoothing_factor'] = 0
 
         # Controller for propagation
@@ -215,7 +218,7 @@ class SpotDS(object):
 
         # It is still possible to apply the propagator to a subject already in the atlas
         # to reinforce the segmentation, for example in iterative round of manual adjustments
-        # and automatic propagation, but a warning message a message is raised and parameters are updated.
+        # and automatic propagation, but a message is shown to console raised.
         if self.target_name in self.atlas_list_charts_names:
             print('Target {} is an element of the template!\n'.format(self.target_name))
 

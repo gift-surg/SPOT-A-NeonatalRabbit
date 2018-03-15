@@ -20,6 +20,11 @@ from spot.tools.utils import substitute_volume_at_timepoint_by_path, get_timepoi
 
 def affine_propagator(sp):
 
+    if sp.propagation_controller['Aff_alignment'] == False and \
+                    sp.propagation_controller['Propagate_aff_to_mask'] == False and \
+                    sp.propagation_controller['Propagate_aff_to_segm'] == False:
+        return
+
     pfo_tmp = sp.scaffoldings_pfo
 
     pfo_target_mod   = jph(sp.target_pfo, sp.arch_modalities_name_folder)
@@ -73,9 +78,10 @@ def affine_propagator(sp):
             pfi_moving_sj_on_target_aff_trans = jph(pfo_tmp, 'aff_trans_{}.txt'.format(suffix_reg))
             pfi_moving_sj_on_target_aff_warp  = jph(pfo_tmp, 'moving_aff_warp_{}_mod.nii.gz'.format(suffix_reg))
             # command:
-            cmd = 'reg_aladin -ref {0} -rmask {1} -flo {2} -fmask {3} -aff {4} -res {5} {6}'.format(
+            cmd = 'reg_aladin -ref {0} -rmask {1} -flo {2} -fmask {3} -aff {4} -res {5} -omp {6} {7}'.format(
                 pfi_target_mod, pfi_target_reg_mask, pfi_moving_sj_mod, pfi_moving_sj_reg_mask,
                 pfi_moving_sj_on_target_aff_trans, pfi_moving_sj_on_target_aff_warp,
+                sp.num_cores_run,
                 sp.propagation_options['Affine_parameters'])
             print_and_run(cmd)
 
@@ -84,11 +90,16 @@ def affine_propagator(sp):
             pfi_moving_sj_on_target_aff_trans = jph(pfo_tmp, 'aff_trans_{}.txt'.format(suffix_reg))
             assert os.path.exists(pfi_moving_sj_on_target_aff_trans), pfi_moving_sj_on_target_aff_trans
             # Output:
-            pfi_moving_sj_on_target_aff_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{}_reg_mask.nii.gz'.format(suffix_reg))
+            pfi_moving_sj_on_target_aff_roi_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{}_{}.nii.gz'.format(suffix_reg, sp.arch_suffix_masks[0]))
+            pfi_moving_sj_on_target_aff_reg_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{}_{}.nii.gz'.format(suffix_reg, sp.arch_suffix_masks[1]))
             # Command:
             cmd = 'reg_resample -ref {0} -flo {1} -trans {2} -res {3} -inter 0 '.format(
                 pfi_target_mod, pfi_moving_sj_reg_mask,
-                pfi_moving_sj_on_target_aff_trans, pfi_moving_sj_on_target_aff_mask_warp)
+                pfi_moving_sj_on_target_aff_trans, pfi_moving_sj_on_target_aff_roi_mask_warp)
+            print_and_run(cmd)
+            cmd = 'reg_resample -ref {0} -flo {1} -trans {2} -res {3} -inter 0 '.format(
+                pfi_target_mod, pfi_moving_sj_reg_mask,
+                pfi_moving_sj_on_target_aff_trans, pfi_moving_sj_on_target_aff_reg_mask_warp)
             print_and_run(cmd)
 
         if sp.propagation_controller['Propagate_aff_to_segm']:
@@ -113,24 +124,26 @@ def non_rigid_propagator(sp):
 
     # --- prepare target affine -> Mono or Multi modal.
     num_modalities = len(sp.propagation_options['N_rigid_modalities'])
+    target_suffix_mask = sp.arch_suffix_masks[sp.propagation_options['N_reg_mask_target']]
+    moving_suffix_mask = sp.arch_suffix_masks[sp.propagation_options['N_reg_mask_moving']]
     # output:
     pfi_target_mod      = jph(pfo_tmp, 'target_nrigid_{0}_mod.nii.gz'.format(sp.target_name))
-    pfi_target_reg_mask = jph(pfo_tmp, 'target_nrigid_{0}_{1}.nii.gz'.format(sp.target_name, sp.arch_suffix_masks[1]))
+    pfi_target_reg_mask = jph(pfo_tmp, 'target_nrigid_{0}_{1}.nii.gz'.format(sp.target_name, target_suffix_mask))
     # STACK modalities:
     pfi_target_mod_list = [jph(pfo_target_mod, '{0}_{1}.nii.gz'.format(sp.target_name, m))
                            for m in sp.propagation_options['N_rigid_modalities']]
     stack_a_list_of_images_from_list_pfi(pfi_target_mod_list, pfi_target_mod)
-    # STACK reg masks:
+    # STACK reg masks target:
     if len(sp.propagation_options['N_rigid_reg_masks']) == 0:
         pfi_target_reg_mask_list = [
-            jph(pfo_target_masks, '{0}_{1}.nii.gz'.format(sp.target_name, sp.arch_suffix_masks[1]))
+            jph(pfo_target_masks, '{0}_{1}.nii.gz'.format(sp.target_name, target_suffix_mask))
             for _ in range(num_modalities)]
         stack_a_list_of_images_from_list_pfi(pfi_target_reg_mask_list, pfi_target_reg_mask)
 
     else:
         assert len(sp.propagation_options['N_rigid_modalities']) == len(sp.propagation_options['N_rigid_reg_masks'])
         pfi_target_reg_mask_list = [
-            jph(pfo_target_masks, '{0}_{1}_{2}.nii.gz'.format(sp.target_name, m, sp.arch_suffix_masks[1]))
+            jph(pfo_target_masks, '{0}_{1}_{2}.nii.gz'.format(sp.target_name, m, target_suffix_mask))
             for m in sp.propagation_options['N_rigid_reg_masks']]
         stack_a_list_of_images_from_list_pfi(pfi_target_reg_mask_list, pfi_target_reg_mask)
 
@@ -143,8 +156,7 @@ def non_rigid_propagator(sp):
         suffix_reg = '{}_on_target_{}'.format(sj, sp.target_name)
         # output:
         pfi_moving_nrigid_sj_mod      = jph(pfo_tmp, 'moving_nrigid_{}_mod.nii.gz'.format(suffix_reg))
-        pfi_moving_nrigid_sj_reg_mask = jph(pfo_tmp, 'moving_nrigid_{}_{}.nii.gz'.format(
-            suffix_reg, sp.arch_suffix_masks[1], ))
+        pfi_moving_nrigid_sj_reg_mask = jph(pfo_tmp, 'moving_nrigid_{}_{}.nii.gz'.format(suffix_reg, moving_suffix_mask))
 
         # -- warp not yet warped sj modalities if any.
         if sp.propagation_options['N_rigid_modalities'] != sp.propagation_options['Affine_modalities']:
@@ -170,12 +182,12 @@ def non_rigid_propagator(sp):
         if sp.propagation_options['N_rigid_reg_masks'] != sp.propagation_options['Affine_reg_masks']:
             # > stack the masks:
             if not sp.propagation_options['N_rigid_reg_masks']:
-                pfi_moving_reg_mask_list = [jph(pfo_sj_masks, '{0}_{1}.nii.gz'.format(sj, sp.arch_suffix_masks[1]))
+                pfi_moving_reg_mask_list = [jph(pfo_sj_masks, '{0}_{1}.nii.gz'.format(sj, moving_suffix_mask))
                                             for _ in range(num_modalities)]
                 stack_a_list_of_images_from_list_pfi(pfi_moving_reg_mask_list, pfi_moving_nrigid_sj_reg_mask)
 
             else:
-                pfi_moving_reg_mask_list = [jph(pfo_sj_masks, '{0}_{1}_{2}.nii.gz'.format(sj, m, sp.arch_suffix_masks[1]))
+                pfi_moving_reg_mask_list = [jph(pfo_sj_masks, '{0}_{1}_{2}.nii.gz'.format(sj, m, moving_suffix_mask))
                                             for m in sp.propagation_options['Affine_reg_masks']]
                 stack_a_list_of_images_from_list_pfi(pfi_moving_reg_mask_list, pfi_moving_nrigid_sj_reg_mask)
             # > warp the stacked masks:
@@ -187,7 +199,7 @@ def non_rigid_propagator(sp):
 
         else:
             # > copy the warped mask from affine registration
-            pfi_moving_sj_on_target_aff_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{}_reg_mask.nii.gz'.format(suffix_reg))
+            pfi_moving_sj_on_target_aff_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{}_{}.nii.gz'.format(suffix_reg, moving_suffix_mask))
             assert os.path.exists(pfi_moving_sj_on_target_aff_mask_warp)
             cmd = 'cp {} {}'.format(pfi_moving_sj_on_target_aff_mask_warp, pfi_moving_nrigid_sj_reg_mask)
             print_and_run(cmd)
@@ -206,7 +218,7 @@ def non_rigid_propagator(sp):
             # > Stack slim registration mask.
             pfi_moving_slim_mask_list = [pfi_slim_mask_of_sj for _ in range(num_modalities)]
             # output:
-            pfi_moving_slim_mask_aff_warp = jph(pfo_tmp, 'moving_nrigid_{}_{}_SLIM.nii.gz'.format(suffix_reg, sp.arch_suffix_masks[1]))
+            pfi_moving_slim_mask_aff_warp = jph(pfo_tmp, 'moving_nrigid_{}_{}_SLIM.nii.gz'.format(suffix_reg, moving_suffix_mask))
             stack_a_list_of_images_from_list_pfi(pfi_moving_slim_mask_list, pfi_moving_slim_mask_aff_warp)
 
             # > Multiply slim registration mask to the final reg_mask. - save it with another name, call later with if.
@@ -230,7 +242,7 @@ def non_rigid_propagator(sp):
                 pfi_bfc_target_mod_slice = jph(pfo_tmp, 'bfc_slice_target_{0}_{1}.nii.gz'.format(sp.target_name, bfc_mod))
                 get_timepoint_by_path(pfi_target_mod, timepoint, pfi_bfc_target_mod_slice)
 
-                # get mask slice at timepoint
+                # get target mask slice at timepoint
                 pfi_bfc_target_reg_mask_slice = jph(pfo_tmp, 'bfc_slice_target_{0}_{1}_mask.nii.gz'.format(sp.target_name, bfc_mod))
                 get_timepoint_by_path(pfi_target_reg_mask, timepoint, pfi_bfc_target_reg_mask_slice)
 
@@ -241,9 +253,9 @@ def non_rigid_propagator(sp):
                 # get moving mask at timepoint
                 pfi_bfc_moving_reg_mask_slice = jph(pfo_tmp, 'bfc_slice_moving_{0}_{1}_mask.nii.gz'.format(suffix_reg, bfc_mod))
                 if sp.propagation_options['N_rigid_slim_reg_mask']:
-                    pfi_moving_aff_mask = jph(pfo_tmp, 'moving_nrigid_{}_{}_SLIM.nii.gz'.format(suffix_reg, sp.arch_suffix_masks[1], ))
+                    pfi_moving_aff_mask = jph(pfo_tmp, 'moving_nrigid_{}_{}_SLIM.nii.gz'.format(suffix_reg, moving_suffix_mask))
                 else:
-                    pfi_moving_aff_mask = jph(pfo_tmp, 'moving_aff_warp_{0}_{1}.nii.gz'.format(suffix_reg, sp.arch_suffix_masks[1]))
+                    pfi_moving_aff_mask = jph(pfo_tmp, 'moving_aff_warp_{0}_{1}.nii.gz'.format(suffix_reg, moving_suffix_mask))
                 get_timepoint_by_path(pfi_moving_aff_mask, timepoint, pfi_bfc_moving_reg_mask_slice)
 
                 # output
@@ -272,7 +284,7 @@ def non_rigid_propagator(sp):
                 moving_mod = jph(pfo_tmp, 'moving_nrigid_{}_mod_BFC.nii.gz'.format(suffix_reg))
 
             if sp.propagation_options['N_rigid_slim_reg_mask']:
-                moving_mask = jph(pfo_tmp, 'moving_nrigid_{}_{}_SLIM.nii.gz'.format(suffix_reg, sp.arch_suffix_masks[1]))
+                moving_mask = jph(pfo_tmp, 'moving_nrigid_{}_{}_SLIM.nii.gz'.format(suffix_reg, moving_suffix_mask))
 
             assert os.path.exists(target_mod)
             assert os.path.exists(target_mask)
