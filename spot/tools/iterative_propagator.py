@@ -265,11 +265,11 @@ def non_rigid_propagator(sp):
                 cmd = sp.bfc_corrector_cmd + ' {0} {1} {2} {3} {4} {5} '.format(
                     pfi_bfc_target_mod_slice, pfi_bfc_target_reg_mask_slice, pfi_diff_bfc_target,
                     pfi_bfc_moving_mod_slice, pfi_bfc_moving_reg_mask_slice, pfi_diff_bfc_subject)
-                print_and_run(cmd)
+                # print_and_run(cmd)
 
                 # integrate the partial BFC output in the final output - target
                 substitute_volume_at_timepoint_by_path(pfi_target_mod_BFC, pfi_diff_bfc_target, timepoint, pfi_target_mod_BFC)
-                substitute_volume_at_timepoint_by_path(pfi_moving_nrigid_mod_BFC, pfi_diff_bfc_target, timepoint, pfi_moving_nrigid_mod_BFC)
+                substitute_volume_at_timepoint_by_path(pfi_moving_nrigid_mod_BFC, pfi_diff_bfc_subject, timepoint, pfi_moving_nrigid_mod_BFC)
 
         if sp.propagation_controller['N_rigid_alignment']:
             # input

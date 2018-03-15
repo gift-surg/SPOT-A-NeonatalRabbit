@@ -70,7 +70,7 @@ class SpotDS(object):
         self.propagation_options['N_rigid_slim_reg_mask']  = False
         self.propagation_options['N_rigid_mod_diff_bfc']   = ('T1', )  # empty list no diff bfc.
         self.propagation_options['N_rigid_parameters']     = '  -vel -be 0.5 -ln 6 -lp 4  -smooR 0.07 -smooF 0.07 '
-        self.propagation_options['N_rigid_same_mask_moving'] = True
+        self.propagation_options['N_rigid_same_mask_moving'] = False
         self.propagation_options['N_reg_mask_target']      = 0  # 0 roi_mask, 1 reg_mask
         self.propagation_options['N_reg_mask_moving']      = 1  # 0 roi_mask, 1 reg_mask
         self.propagation_options['Final_smoothing_factor'] = 0
