@@ -140,7 +140,7 @@ def non_rigid_propagator(sp):
             for _ in range(num_modalities)]
         stack_a_list_of_images_from_list_pfi(pfi_target_reg_mask_list, pfi_target_reg_mask)
 
-    else:
+    else:  # TODO every input subject must have roi_mask and reg_mask per modality.
         assert len(sp.propagation_options['N_rigid_modalities']) == len(sp.propagation_options['N_rigid_reg_masks'])
         pfi_target_reg_mask_list = [
             jph(pfo_target_masks, '{0}_{1}_{2}.nii.gz'.format(sp.target_name, m, target_suffix_mask))

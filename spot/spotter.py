@@ -168,10 +168,11 @@ class SpotDS(object):
         # Sanity check:
         msg = ''
         for bfc_mod in self.propagation_options['N_rigid_mod_diff_bfc']:
-            if bfc_mod not in self.propagation_options['N_rigid_modalities']:
-                msg += '\n\n === The modality selected for the differential bias field is not present in ' \
-                       'the stack. Turn N_rigid_mod_diff_bfc to empty list, or add its values to ' \
-                       'N_rigid_modalities == \n'
+            if len(self.propagation_options['N_rigid_modalities']) > 0:
+                if bfc_mod not in self.propagation_options['N_rigid_modalities']:
+                    msg += '\n\n === The modality selected for the differential bias field is not present in ' \
+                           'the stack. Turn N_rigid_mod_diff_bfc to empty list, or add its values to ' \
+                           'N_rigid_modalities == \n'
 
         if len(self.propagation_options['Affine_reg_masks']) > 0:
             if not len(self.propagation_options['Affine_reg_masks']) == len(self.propagation_options['Affine_modalities']):
