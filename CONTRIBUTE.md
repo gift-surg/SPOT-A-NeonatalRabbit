@@ -52,8 +52,8 @@ By participating, you are expected to uphold this code.
 [covenant]: https://contributor-covenant.org/
 [itk_standard_commit]: https://itk.org/Wiki/ITK/Git/Develop
 [pep8]: https://www.python.org/dev/peps/pep-0008/ 
-[docsfolder]: spam
-[wikipage]:spam
-[spot_issue_page]: spam
+[docsfolder]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/tree/master/docs
+[wikipage]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/wiki
+[spot_issue_page]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/issues
 [pull-requests]: https://yangsu.github.io/pull-request-tutorial/
 

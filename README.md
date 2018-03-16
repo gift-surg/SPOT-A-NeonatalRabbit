@@ -16,7 +16,7 @@ propagation and label fusion pipelines.
 ## Material related to Neonatal Rabbit Brain Mutli-Atlas:
 
 * [MRI Neonatal Rabbit Brain Mutli-Atlas][mrira] - Coming soon on Zenodo
-* Repository for the Rabbit Brain Mutli-Atlas benchmarking - Coming soon 
+* [Repository for the Rabbit Brain Mutli-Atlas benchmarking][multiatlasonzenodo] - Coming soon 
 * Documentation with the protocol employed in creating the Rabbit Brain Mutli-Atlas - Coming soon
 
 ## Getting started
@@ -66,6 +66,8 @@ feature requests and code re-factoring and re-styling.
 + The upcomging documentation with provide the full list of authors and acknowledgments.
 
 
+[wikipage]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/wiki
+[multiatlasonzenodo]: Coming-Soon
 [giftsurg]: http://www.gift-surg.ac.uk
 [niftyreg]: http://cmictig.cs.ucl.ac.uk/wiki/index.php/NiftyReg
 [niftyseg]: http://cmictig.cs.ucl.ac.uk/research/software/software-nifty/niftyseg
