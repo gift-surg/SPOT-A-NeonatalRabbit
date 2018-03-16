@@ -12,12 +12,12 @@ Anyone that is contributing is expected to keep the same naming convention.
 + For any issue bugs or question related to the code, please raise an issue in the 
 [SPOT-A-NeonatalRabbit issue page][spot_issue_page].
 
++ **Please use a new issue for each thread:** make your issue re-usable and reachable by other users that may have 
+encountered a similar problem.
+
 + Propose here as well improvements suggestions and new features.
 
 + Feel free to send an email to s.ferraris at ucl dot ac dot uk.
-
-+ **Please use a new issue for each thread:** make your issue re-usable and reachable by other users that may have 
-encountered a similar problem.
 
 + [Pull requests][pull-requests] are more than welcome. Please **check tests are all passed** 
 before this (type `nosetests` in the code root folder), the new features are integrated in the record (text file
