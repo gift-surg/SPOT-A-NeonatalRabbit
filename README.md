@@ -20,8 +20,8 @@ propagation and label fusion pipelines.
 
 ## Material related to Neonatal Rabbit Brain Mutli-Atlas:
 
-* [MRI Neonatal Rabbit Brain Mutli-Atlas][mrira] - Coming soon on Zenodo
-* [Repository for the Rabbit Brain Mutli-Atlas benchmarking][multiatlasonzenodo] - Coming soon 
+* [MRI Neonatal Rabbit Brain Mutli-Atlas][mrira] 
+* [Repository for the Rabbit Brain Mutli-Atlas benchmarking][multiatlasonzenodo] - Coming soon on Zenodo
 * Documentation with the protocol employed in creating the Rabbit Brain Mutli-Atlas - Coming soon
 
 ## Getting started
