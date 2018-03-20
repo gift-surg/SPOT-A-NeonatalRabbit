@@ -1,11 +1,13 @@
-<p align="center"> 
-<img src="https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/docs/software_scheme.jpg" width="650">
-</p>
+
 
 
 # SPOT-A-NeonatalRabbit
 
 **Segmentations Propagation On Target (...as a Neonatal Rabbit)**
+
+<p align="center"> 
+<img src="https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/docs/software_scheme.jpg" width="750">
+</p>
 
 This is an open-source repository written in Python 2 and based on [LABelsToolkit][labelstoolkit], [NiftyReg][niftyreg], 
 [NiftySeg][niftyseg] and [NifTK][niftk] 
