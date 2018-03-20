@@ -1,3 +1,8 @@
+<p align="center"> 
+<img src="https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/docs/software_scheme.jpg" width="450">
+</p>
+
+
 # SPOT-A-NeonatalRabbit
 
 **Segmentations Propagation On Target (...as a Neonatal Rabbit)**
