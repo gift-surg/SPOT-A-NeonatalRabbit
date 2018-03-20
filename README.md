@@ -1,5 +1,5 @@
 <p align="center"> 
-<img src="https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/docs/software_scheme.jpg" width="450">
+<img src="https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/docs/software_scheme.jpg" width="650">
 </p>
 
 
