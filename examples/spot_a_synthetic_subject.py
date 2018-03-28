@@ -14,7 +14,7 @@ from collections import OrderedDict
 
 from spot.tools.system_parameters import bfc_corrector_cmd
 from spot.spotter import SpotDS
-from test.test_spotter_phantom import generate_test_dataset
+from test.test_spotter_phantom import generate_phantom_dataset
 
 
 # parameters - use the same dataset used for testing.
@@ -31,7 +31,7 @@ RN = 0.4
 
 if __name__ == '__main__':
     global PATH_DIR
-    generate_test_dataset(PATH_DIR)
+    generate_phantom_dataset(PATH_DIR)
 
     # --- initialise the class spot:
     target_name = '{}01'.format(TARGET_NAME_SUFFIX)

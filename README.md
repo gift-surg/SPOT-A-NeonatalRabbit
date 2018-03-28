@@ -14,10 +14,10 @@ This is an open-source repository written in Python 2 and based on [LABelsToolki
 to propagate an MRI multi-atlas on a new subject scanned with the same modalities of the multi-atlas 
 (target). 
 Default parameters are tuned to work in particular for the Newborn Rabbit Multi-Atlas developed within the 
-[GIFT-Surg project][giftsurg] in collaboration between University College London (UK) and 
-Katholische Universitat  Leuve (Belgium).
+[GIFT-surg project][giftsurg] in collaboration between University College London (UK) and 
+Katholische Universitat Leuven (Belgium).
  
-Via parameters tuning, this software can be used as a framework to automatise general segmentation 
+Via parameters tuning, this software can be used as a framework to automate general segmentation 
 propagation and label fusion pipelines.
 
 ## Material related to Neonatal Rabbit Brain Mutli-Atlas:
@@ -68,7 +68,7 @@ feature requests and code re-factoring and re-styling.
 
 ## Authors and Acknowledgments
 
-+ The MRI Neonatal Rabbit Multi-Atlas and related code is developed within the [gift-SURG research project][giftsurg] in collaboration with KU Leuven (Belgium) and UCL (UK).
++ The MRI Neonatal Rabbit Multi-Atlas and related code is developed within the [GIFT-surg research project][giftsurg] in collaboration with KU Leuven (Belgium) and UCL (UK).
 + This work was supported by Wellcome / Engineering and Physical Sciences Research Council (EPSRC) [WT101957; NS/A000027/1; 203145Z/16/Z]. 
 + The upcomging documentation with provide the full list of authors and acknowledgments.
 
