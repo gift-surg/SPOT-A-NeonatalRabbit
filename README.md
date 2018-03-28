@@ -17,8 +17,8 @@ Default parameters are tuned to work in particular for the Newborn Rabbit Multi-
 [GIFT-surg project][giftsurg] in collaboration between University College London (UK) and 
 Katholische Universitat Leuven (Belgium).
  
-Via parameters tuning, this software can be used as a framework to automate general segmentation 
-propagation and label fusion pipelines.
+Tuning the parameters (attributes of the class spotter.Spot_DS) according to the dataset, this software can be a
+starting point framework to automate general segmentation propagation and label fusion pipelines.
 
 ## Material related to Neonatal Rabbit Brain Mutli-Atlas:
 
