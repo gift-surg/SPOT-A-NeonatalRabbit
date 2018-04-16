@@ -54,10 +54,8 @@ def fuser(sp):
                 else:
                     pfi_target = jph(pfo_tmp, 'target_nrigid_{}_mod.nii.gz'.format(sp.target_name))
             else:
-                if len(sp.propagation_options['N_rigid_mod_diff_bfc']) > 0:
-                    pfi_target = jph(pfo_tmp, 'target_aff_{}_mod_BFC.nii.gz'.format(sp.target_name))
-                else:
-                    pfi_target = jph(pfo_tmp, 'target_aff_{}_mod.nii.gz'.format(sp.target_name))
+                pfi_target = sp.propagation_options['N_rigid_modalities'] = jph(pfo_tmp, 'target_aff_{}_mod.nii.gz'.format(sp.target_name))
+
             assert os.path.exists(pfi_target)
 
             for key_steps in sp.fuser_options['STEPS_params'].keys():
