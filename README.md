@@ -9,22 +9,22 @@
 <img src="https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/docs/software_scheme.jpg" width="750">
 </p>
 
-This is an open-source repository written in Python 2 and based on [LABelsToolkit][labelstoolkit], [NiftyReg][niftyreg], 
+[This][thisrepo] is an open-source repository written in Python 2 and based on [LABelsToolkit][labelstoolkit], [NiftyReg][niftyreg], 
 [NiftySeg][niftyseg] and [NifTK][niftk] 
 to propagate an MRI multi-atlas on a new subject scanned with the same modalities of the multi-atlas 
 (target). 
 Default parameters are tuned to work in particular for the Newborn Rabbit Multi-Atlas developed within the 
 [GIFT-surg project][giftsurg] in collaboration between University College London (UK) and 
-Katholische Universitat Leuven (Belgium).
+Katholieke Universiteit Leuven (Belgium).
  
 Tuning the parameters (attributes of the class spotter.Spot_DS) according to the dataset, this software can be a
 starting point framework to automate general segmentation propagation and label fusion pipelines.
 
 ## Material related to Neonatal Rabbit Brain Mutli-Atlas:
 
-* [MRI Neonatal Rabbit Brain Mutli-Atlas][multiatlasonzenodo] - Coming soon on Zenodo
+* [MRI Neonatal Rabbit Brain Mutli-Atlas][multiatlasonzenodo]
 * [Repository for the Rabbit Brain Mutli-Atlas benchmarking][mrira]
-* Documentation with the protocol employed in creating the Rabbit Brain Mutli-Atlas - Coming soon
+* [Documentation with the protocol employed in creating the Rabbit Brain Mutli-Atlas][paperlink]
 
 ## Getting started
 
@@ -53,7 +53,7 @@ starting point framework to automate general segmentation propagation and label 
 + Unit testing with [nosetest][nosetest]. 
 Type `nosetests` in a terminal at the cloned repository.
 + Tests are based on a lightweight multi-atlas with analogous structure than the Neonatal Brain Rabbit generated with [LABelsToolkit][labelstoolkit]. 
-The first test may take some minutes to create the multi-atlas.
+The first test may take some minutes to create the phantom multi-atlas.
 
 ## Support and contribution
 Please see the [contribution guideline][contributionguideline] for bugs report,
@@ -61,20 +61,20 @@ feature requests and code re-factoring and re-styling.
 
 ## Copyright and licence
 + Copyright (c) 2018, University College London.
-+ SPOT-A-NeonatalRabbit is available as free open-source software under [3-Clause BSD][licence]
-<!---
-+ To cite the code in your research please follow [this link](http://joss.theoj.org/papers/2ee6a3a3b1a4d8df1633f601bf2b0ffe).
--->
++ SPOT-A-NeonatalRabbit is available as free open-source software under [3-Clause BSD][licence].
++ To cite the code in your research please cite the [related publication][paperlink].
 
 ## Authors and Acknowledgments
 
 + The MRI Neonatal Rabbit Multi-Atlas and related code is developed within the [GIFT-surg research project][giftsurg] in collaboration with KU Leuven (Belgium) and UCL (UK).
 + This work was supported by Wellcome / Engineering and Physical Sciences Research Council (EPSRC) [WT101957; NS/A000027/1; 203145Z/16/Z]. 
-+ The upcomging documentation with provide the full list of authors and acknowledgments.
++ See the [related publication][paperlink] for the full list of authors and acknowledgments.
 
 
+[thisrepo]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit
 [wikipage]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/wiki
-[multiatlasonzenodo]: Coming-Soon
+[paperlink]: https://doi.org/10.1016/j.neuroimage.2018.06.029
+[multiatlasonzenodo]: https://doi.org/10.5281/zenodo.1289776
 [giftsurg]: http://www.gift-surg.ac.uk
 [niftyreg]: http://cmictig.cs.ucl.ac.uk/wiki/index.php/NiftyReg
 [niftyseg]: http://cmictig.cs.ucl.ac.uk/research/software/software-nifty/niftyseg
