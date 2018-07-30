@@ -212,10 +212,10 @@ class SpotDS(object):
             self.atlas_list_charts_names, self.target_pfo))
         print('--- Propagation options:')
         for k in self.propagation_options.keys():
-            print('{0:<20} : {1}'.format(k, self.propagation_options[k]))
+            print('{0:<30} : {1}'.format(k, self.propagation_options[k]))
         print('\n--- Propagation controller')
         for k in self.propagation_controller.keys():
-            print('{0:<20} : {1}'.format(k, self.propagation_controller[k]))
+            print('{0:<30} : {1}'.format(k, self.propagation_controller[k]))
 
         # It is still possible to apply the propagator to a subject already in the atlas
         # to reinforce the segmentation, for example in iterative round of manual adjustments
