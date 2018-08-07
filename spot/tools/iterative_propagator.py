@@ -135,14 +135,24 @@ def affine_propagator(sp):
                         pfi_moving_sj_on_target_aff_trans, pfi_moving_sj_on_target_aff_reg_mask_warp)
                 print_and_run(cmd)
             else:
-                for mod in list_modalities:
-                    pfi_moving_sj_reg_mask_mod = jph(pfo_sj_masks, '{0}_{1}_{2}.nii.gz'.format(sj, mod, sp.arch_suffix_masks[1]))
-                    assert os.path.exists(pfi_moving_sj_reg_mask_mod), pfi_moving_sj_reg_mask_mod
-                    pfi_moving_sj_on_target_aff_reg_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{0}_{1}_{2}.nii.gz'.format(sj, mod, sp.arch_suffix_masks[1]))
-                    cmd = 'reg_resample -ref {0} -flo {1} -trans {2} -res {3} -inter 0 '.format(
-                        pfi_target_mod, pfi_moving_sj_reg_mask,
-                        pfi_moving_sj_on_target_aff_trans, pfi_moving_sj_on_target_aff_reg_mask_warp)
-                    print_and_run(cmd)
+                # for mod in list_modalities:
+                #     pfi_moving_sj_reg_mask_mod = jph(pfo_sj_masks, '{0}_{1}_{2}.nii.gz'.format(sj, mod, sp.arch_suffix_masks[1]))
+                #     assert os.path.exists(pfi_moving_sj_reg_mask_mod), pfi_moving_sj_reg_mask_mod
+                #     pfi_moving_sj_on_target_aff_reg_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{0}_{1}_{2}.nii.gz'.format(sj, mod, sp.arch_suffix_masks[1]))
+                #     cmd = 'reg_resample -ref {0} -flo {1} -trans {2} -res {3} -inter 0 '.format(
+                #         pfi_target_mod, pfi_moving_sj_reg_mask,
+                #         pfi_moving_sj_on_target_aff_trans, pfi_moving_sj_on_target_aff_reg_mask_warp)
+                #     print_and_run(cmd)
+                # This version template there is only one reg mask for each modality.
+
+                pfi_moving_sj_reg_mask_mod = jph(pfo_sj_masks, '{0}_{1}.nii.gz'.format(sj, sp.arch_suffix_masks[1]))
+                assert os.path.exists(pfi_moving_sj_reg_mask_mod), pfi_moving_sj_reg_mask_mod
+                pfi_moving_sj_on_target_aff_reg_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{0}_{1}.nii.gz'.format(sj, sp.arch_suffix_masks[1]))
+                cmd = 'reg_resample -ref {0} -flo {1} -trans {2} -res {3} -inter 0 '.format(
+                    pfi_target_mod, pfi_moving_sj_reg_mask,
+                    pfi_moving_sj_on_target_aff_trans, pfi_moving_sj_on_target_aff_reg_mask_warp)
+                print_and_run(cmd)
+
 
             # -> BRAIN masks if any. SLIM mask for the non-rigid step will be reconstructed in the non-rigid step.
             if sp.propagation_options['Affine_slim_reg_mask'] or sp.propagation_options['N_rigid_slim_reg_mask']:
