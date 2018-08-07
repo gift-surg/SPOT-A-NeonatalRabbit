@@ -32,49 +32,50 @@ class SpotDS(object):
     """
     def __init__(self, atlas_pfo, target_pfo, target_name, parameters_tag):
         # atlas
-        self.atlas_name = ''
-        self.atlas_pfo = atlas_pfo
-        self.atlas_list_charts_names = []
+        self.atlas_name                   = ''
+        self.atlas_pfo                    = atlas_pfo
+        self.atlas_list_charts_names      = []
         self.atlas_list_suffix_modalities = ['T1', 'S0', 'V1', 'MD', 'FA']
-        self.atlas_reference_chart_name = '1305'
-        self.atlas_segmentation_suffix = '_approved_round3'
+        self.atlas_reference_chart_name   = '1305'
+        self.atlas_segmentation_suffix    = '_approved_round3'
         # target
-        self.target_pfo = target_pfo
-        self.target_name = target_name
+        self.target_pfo                   = target_pfo
+        self.target_name                  = target_name
         # folder structure - naming conventions
-        self.arch_modalities_name_folder     = 'mod'
-        self.arch_masks_name_folder          = 'masks'
-        self.arch_segmentations_name_folder  = 'segm'
-        self.arch_scaffoldings_name_folder   = 'z_SPOT'
-        self.arch_suffix_masks = ['roi_mask', 'reg_mask', 'brain_mask']  # first ROI, second masks out artefacts for registration.
+        self.arch_modalities_name_folder               = 'mod'
+        self.arch_masks_name_folder                    = 'masks'
+        self.arch_segmentations_name_folder            = 'segm'
+        self.arch_scaffoldings_name_folder             = 'z_SPOT'
+        #  \ arch_suffix_masks ->  first ROI, second masks out artefacts for registration, third optional mask brain tissue.
+        self.arch_suffix_masks                         = ['roi_mask', 'reg_mask', 'brain_mask']
         self.arch_automatic_segmentations_name_folder  = 'automatic'
         self.arch_approved_segmentation_prefix         = 'result_'
 
         # extra utils:
-        self.bfc_corrector_cmd = bfc_corrector_cmd
-        self.num_cores_run = 8
+        self.bfc_corrector_cmd   = bfc_corrector_cmd
+        self.num_cores_run       = 8
 
         # Output tagging and intermediate files
-        self.parameters_tag = parameters_tag  # most important information.
-        self.target_scaffoldings_folder_name = self.arch_scaffoldings_name_folder + '_' + self.parameters_tag
-        self.scaffoldings_pfo = jph(target_pfo, self.target_scaffoldings_folder_name)
+        self.parameters_tag                   = parameters_tag  # most important information.
+        self.target_scaffoldings_folder_name  = self.arch_scaffoldings_name_folder + '_' + self.parameters_tag
+        self.scaffoldings_pfo                 = jph(target_pfo, self.target_scaffoldings_folder_name)
 
         # Options for propagation
         self.propagation_options = OrderedDict()
 
-        self.propagation_options['Affine_modalities']      = ('T1', 'FA')
-        self.propagation_options['Affine_reg_masks']       = ('T1', 'S0')  # if [], same mask for all modalities
-        self.propagation_options['Affine_parameters']      = ' '
-        self.propagation_options['Affine_slim_reg_mask']   = False
-        self.propagation_options['N_rigid_modalities']     = ('T1', 'FA')  # if empty, no non-rigid step.
-        self.propagation_options['N_rigid_reg_masks']      = ('T1', 'S0')  # if [], same mask for all modalities
-        self.propagation_options['N_rigid_slim_reg_mask']  = False
-        self.propagation_options['N_rigid_mod_diff_bfc']   = ('T1', )  # empty list no diff bfc.
-        self.propagation_options['N_rigid_parameters']     = '  -vel -be 0.5 -ln 6 -lp 4  -smooR 0.07 -smooF 0.07 '
+        self.propagation_options['Affine_modalities']        = ('T1', 'FA')
+        self.propagation_options['Affine_reg_masks']         = ('T1', 'S0')  # if [], same mask for all modalities
+        self.propagation_options['Affine_parameters']        = ' '
+        self.propagation_options['Affine_slim_reg_mask']     = False
+        self.propagation_options['N_rigid_modalities']       = ('T1', 'FA')  # if empty, no non-rigid step.
+        self.propagation_options['N_rigid_reg_masks']        = ('T1', 'S0')  # if [], same mask for all modalities
+        self.propagation_options['N_rigid_slim_reg_mask']    = False
+        self.propagation_options['N_rigid_mod_diff_bfc']     = ('T1', )  # empty list no diff bfc.
+        self.propagation_options['N_rigid_parameters']       = '  -vel -be 0.5 -ln 6 -lp 4  -smooR 0.07 -smooF 0.07 '
         self.propagation_options['N_rigid_same_mask_moving'] = False
-        self.propagation_options['N_reg_mask_target']      = 0  # 0 roi_mask, 1 reg_mask
-        self.propagation_options['N_reg_mask_moving']      = 1  # 0 roi_mask, 1 reg_mask
-        self.propagation_options['Final_smoothing_factor'] = 0
+        self.propagation_options['N_reg_mask_target']        = 0  # 0 roi_mask, 1 reg_mask
+        self.propagation_options['N_reg_mask_moving']        = 1  # 0 roi_mask, 1 reg_mask
+        self.propagation_options['Final_smoothing_factor']   = 0
 
         # Controller for propagation
         self.propagation_controller = OrderedDict()
@@ -92,10 +93,10 @@ class SpotDS(object):
         # Option for fuser:
         self.fuser_options = OrderedDict()
 
-        self.fuser_options['Fusion_methods'] = ['MV', 'STAPLE', 'STEPS']
+        self.fuser_options['Fusion_methods']  = ['MV', 'STAPLE', 'STEPS']
         self.fuser_options['Tp_mod_to_stack'] = 1  # if multi modal, only this timepoint of the warped modality will be considered to create the stack.
-        self.fuser_options['STAPLE_params'] = OrderedDict([('pr_1', None)])
-        self.fuser_options['STEPS_params'] = OrderedDict([('pr_{0}_{1}'.format(k, n), [k, n, 0.4])
+        self.fuser_options['STAPLE_params']   = OrderedDict([('pr_1', None)])
+        self.fuser_options['STEPS_params']    = OrderedDict([('pr_{0}_{1}'.format(k, n), [k, n, 0.4])
                                                              for n in [5, 7, 9] for k in [5,  11]])
 
         # Controller for fuser:
@@ -103,6 +104,8 @@ class SpotDS(object):
 
         self.fuser_controller['Fuse']         = True
         self.fuser_controller['Save_results'] = True
+
+    # -> Sanity tests: input structure folder must have standardised nomenclature. Check documentation.
 
     def _check_multi_atlas_structure(self):
         if self.parameters_tag == '' or self.parameters_tag is None or '_' in self.parameters_tag:
@@ -167,13 +170,13 @@ class SpotDS(object):
             raise IOError(msg)
 
     def _check_propagation_options(self):
-        # Sanity check, tuple where there should be:
+        # Sanity check for propagation options, tuple where there should be:
         msg = 'Keys in propagation_options - Affine_modalities Affine_reg_masks N_rigid_modalities ' \
              'N_rigid_reg_masks N_rigid_mod_diff_bfc- must be tuples (or list) not strings.'
         for k in ['Affine_modalities', 'Affine_reg_masks', 'N_rigid_modalities', 'N_rigid_reg_masks', 'N_rigid_mod_diff_bfc']:
             if not (isinstance(self.propagation_options[k], tuple) or isinstance(self.propagation_options[k], list)):
                 raise IOError(msg)
-        # Sanity check:
+        # Sanity check for modalities:
         msg = ''
         for bfc_mod in self.propagation_options['N_rigid_mod_diff_bfc']:
             if len(self.propagation_options['N_rigid_modalities']) > 0:
@@ -205,11 +208,14 @@ class SpotDS(object):
     def _spot_on_target_update_records(self):
         update_parameters_record(self)
 
+    # -> Core methods: initialise, propagate, fuse and save results by tag.
+
     def spot_on_target_initialise(self):
         os.system('mkdir -p {}'.format(self.scaffoldings_pfo))
         update_parameters_record(self)
 
     def propagate(self):
+        # call sanity check first:
         self._check_multi_atlas_structure()
         self._check_target_structure()
         self._check_propagation_options()
