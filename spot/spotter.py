@@ -81,6 +81,7 @@ class SpotDS(object):
         self.propagation_controller = OrderedDict()
 
         self.propagation_controller['Aff_alignment']         = True
+        self.propagation_controller['Get_affine_slim_mask']  = True
         self.propagation_controller['Propagate_aff_to_segm'] = True
         self.propagation_controller['Propagate_aff_to_mask'] = True
         self.propagation_controller['Get_N_rigid_slim_mask'] = True
@@ -105,7 +106,8 @@ class SpotDS(object):
         self.fuser_controller['Fuse']         = True
         self.fuser_controller['Save_results'] = True
 
-    # -> Sanity tests: input structure folder must have standardised nomenclature. Check documentation.
+    # -> Sanity tests: input structure folder must have standardised nomenclature.
+    # Convoluted code to provide a cumulative and informative list of requirements given the optional inputs.
 
     def _check_multi_atlas_structure(self):
         if self.parameters_tag == '' or self.parameters_tag is None or '_' in self.parameters_tag:
@@ -262,8 +264,9 @@ class SpotDS(object):
             # Auxiliary
             for pfi in os.listdir(pfo_input):
                 if pfi.startswith(self.arch_approved_segmentation_prefix):
-                    cmd = 'cp {0} {1}'.format(pfi, jph(
-                        self.target_pfo, self.target_name, self.arch_segmentations_name_folder, pfi.replace(self.arch_approved_segmentation_prefix, '')))
+                    cmd = 'cp {0} {1}'.format(pfi,
+                        jph(self.target_pfo, self.target_name, self.arch_segmentations_name_folder,
+                            pfi.replace(self.arch_approved_segmentation_prefix, '')))
                     print(cmd)
                     os.system(cmd)
 
