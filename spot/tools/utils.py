@@ -60,6 +60,9 @@ def get_list_pfi_images_3d_from_list_images_4d(list_pfi_4d_images, tp):
         list_new.append(p_new)
     return list_new
 
+def prepare_slim_mask_for_a_list_of_paths(pfi_target_reg_mask_list_input, pfi_brain_mask):
+    # TODO bypass for the moment. To be updated with fancier method combining brain mask and reg_mask... In progress!
+    return pfi_target_reg_mask_list_input
 
 def create_log(pfo_where_to_save, log_name='log.txt'):
 

@@ -68,7 +68,7 @@ def propagator(sp):
             pfi_4d_stack_warp_segm = jph(pfo_tmp, fin_stack_segm)
             stack_a_list_of_images_from_list_pfi(list_pfi_warp_segm, pfi_4d_stack_warp_segm)
 
-            # -- > Create the stack modalities mono and multi are stacked differently:
+            # -- > Create the stack modalities - mono and multi are stacked differently:
             fin_stack_warp = '{0}_stack_warp_mod_{1}.nii.gz'.format(sp.target_name, sp.parameters_tag)
             pfi_4d_stack_warp_mod = jph(pfo_tmp, fin_stack_warp)
 

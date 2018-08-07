@@ -46,7 +46,7 @@ class SpotDS(object):
         self.arch_masks_name_folder          = 'masks'
         self.arch_segmentations_name_folder  = 'segm'
         self.arch_scaffoldings_name_folder   = 'z_SPOT'
-        self.arch_suffix_masks = ['roi_mask', 'reg_mask']  # first ROI, second masks out artefacts for registration.
+        self.arch_suffix_masks = ['roi_mask', 'reg_mask', 'brain_mask']  # first ROI, second masks out artefacts for registration.
         self.arch_automatic_segmentations_name_folder  = 'automatic'
         self.arch_approved_segmentation_prefix         = 'result_'
 
@@ -65,6 +65,7 @@ class SpotDS(object):
         self.propagation_options['Affine_modalities']      = ('T1', 'FA')
         self.propagation_options['Affine_reg_masks']       = ('T1', 'S0')  # if [], same mask for all modalities
         self.propagation_options['Affine_parameters']      = ' '
+        self.propagation_options['Affine_slim_reg_mask']   = False
         self.propagation_options['N_rigid_modalities']     = ('T1', 'FA')  # if empty, no non-rigid step.
         self.propagation_options['N_rigid_reg_masks']      = ('T1', 'S0')  # if [], same mask for all modalities
         self.propagation_options['N_rigid_slim_reg_mask']  = False
@@ -114,11 +115,15 @@ class SpotDS(object):
                         '{0}_{1}.nii.gz'.format(chart_name, mod_j))
                 if not os.path.exists(p):
                     msg += 'File {} does not exist. \n'.format(p)
-            for mask_j in self.arch_suffix_masks:
+            for mask_id, mask_j in enumerate(self.arch_suffix_masks):
                 p = jph(self.atlas_pfo, chart_name, self.arch_masks_name_folder,
                         '{0}_{1}.nii.gz'.format(chart_name, mask_j))
                 if not os.path.exists(p):
                     msg += 'File {} does not exist. \n'.format(p)
+                    if mask_id == 2 and \
+                            (self.propagation_options['N_rigid_slim_reg_mask'] or
+                             self.propagation_options['Affine_slim_reg_mask']):
+                        msg += '\nFile with brain_mask for the slim mask creation required but not present. \n'.format(p)
             p = jph(self.atlas_pfo, chart_name, self.arch_segmentations_name_folder,
                     '{0}_{1}.nii.gz'.format(chart_name, self.atlas_segmentation_suffix))
             if not os.path.exists(p):
@@ -154,7 +159,10 @@ class SpotDS(object):
                         '{0}_{1}.nii.gz'.format(self.target_name, self.arch_suffix_masks[1]))
             if not os.path.exists(p):
                 msg += 'File {} does not exist. \n'.format(p)
-
+        if self.propagation_options['N_rigid_slim_reg_mask'] or  self.propagation_options['Affine_slim_reg_mask']:
+            p = jph(self.target_pfo, self.arch_masks_name_folder, '{0}_{1}.nii.gz'.format(self.target_name, self.arch_suffix_masks[2]))
+            if not os.path.exists(p):
+                msg += 'File with brain_mask for the slim mask creation {} required but not present. \n'.format(p)
         if msg is not '':
             raise IOError(msg)
 
