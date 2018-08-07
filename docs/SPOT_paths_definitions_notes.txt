@@ -1,6 +1,27 @@
 
 -----> PROCEDURE: PROPAGATION <-----
 
+
+Note1: a pivotal modality is a representative modality of a class of modalities usually derived from the same method.
+        Eg S0 is the pivotal modality of FA, MD, V1 and S0 itself.
+        Eg T1 is the pivotal modality of T1 itself.
+        A mask for S0 (pivotal) holds as well for the other modalities in the same class of modalities.
+
+Note2: registration masks plays a critical role.
+  Each subject considered as multi-atlas or target should have 3 different masks (for each pivotal modality).
+  > roi_mask : is a broad region of interest, including brain tissue and surrounding part of the skull.
+               This must include the brain tissue, but not be more precise than this. Leaving the smaller refinement
+               to later steps. It includes artefacts as well.
+  > reg_mask : "registration mask" which is the roi_mask subtracted lesions (hyper or hypo intense
+                parts due to artefacts). Black bubble and percolations should be left outside the mask.
+  > brain_mask :  it is a mask of the brain tissue. Including artefacts if appearing within the tissue.
+  From these masks we can derive:
+  > slim_mask = brain_mask * reg_mask
+
+  If roi_mask is not present raises an error.
+  If reg_mask is not present, roi_mask is taken instead + warning to console.
+  If brain_mask is not present and slim_mask option is True, raises an error.
+
 --> AFFINE propagation
 
 The single target (fixed image in the registration) for the whle procedure is:
@@ -78,7 +99,7 @@ Part 3:
     > moving_nrigid_warp_<sj>_on_<sj_target>_reg_mask.nii.gz
 
 Part 4:
-    Smoothing final segmentation IF smol factor is large
+    Smoothing final segmentation IF smol factor is greater than 0
     > segm_moving_nrigid_warp_<sj>_on_<sj_target>_SMOL.nii.gz
 
 -- > PROPAGATION STACK:
