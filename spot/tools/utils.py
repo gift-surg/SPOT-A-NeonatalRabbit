@@ -4,7 +4,7 @@ import logging
 
 from LABelsToolkit.tools.aux_methods.utils import print_and_run
 from LABelsToolkit.tools.image_shape_manipulations.merger import substitute_volume_at_timepoint
-
+from LABelsToolkit.main import LABelsToolkit as LaB
 
 def substitute_volume_at_timepoint_by_path(pfi_im_input_4d, pfi_im_input_3d, timepoint, pfi_output):
     im_input_4d = nib.load(pfi_im_input_4d)
@@ -61,9 +61,17 @@ def get_list_pfi_images_3d_from_list_images_4d(list_pfi_4d_images, tp):
     return list_new
 
 def prepare_slim_mask_from_path_to_stack(pfi_target_reg_mask_input, pfi_brain_mask, pfi_target_reg_mask_output):
-    # MUST work for 3D and 4D.
-    # TODO bypass for the moment. To be updated with fancier method combining brain mask and reg_mask... In progress!
-    return pfi_target_reg_mask_input
+    """
+    Very simple for the moment:
+    slim_mask = reg_mask * brain_mask
+    :param pfi_target_reg_mask_input:
+    :param pfi_brain_mask:
+    :param pfi_target_reg_mask_output:
+    :return:
+    """
+    lab = LaB()
+    lab.manipulate_shape.cut_4d_volume_with_a_1_slice_mask(pfi_target_reg_mask_input, pfi_brain_mask, pfi_target_reg_mask_output)
+
 
 def create_log(pfo_where_to_save, log_name='log.txt'):
 
