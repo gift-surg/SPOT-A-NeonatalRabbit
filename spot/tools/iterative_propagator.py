@@ -246,7 +246,7 @@ def non_rigid_propagator(sp):
         # else:
         #     pfi_sj_list_reg_masks = [jph(pfo_tmp, 'moving_aff_warp_{0}_{1}_{2}.nii.gz'.format(sj, mod, sp.arch_suffix_masks[1])) for mod in sp.propagation_options['N_rigid_reg_masks']]
         # This version template there is only one reg mask for each modality.
-        pfi_sj_list_reg_masks = [jph(pfo_tmp, 'moving_aff_warp_{0}_{1}.nii.gz'.format(sj, sp.arch_suffix_masks[1])) for _ in range(num_modalities)]
+        pfi_sj_list_reg_masks = [jph(pfo_tmp, 'moving_aff_warp_{0}_{1}.nii.gz'.format(suffix_reg, sp.arch_suffix_masks[1])) for _ in range(num_modalities)]
         utils.stack_a_list_of_images_from_list_pfi(pfi_sj_list_reg_masks, pfi_moving_nrigid_sj_reg_mask)
 
         # if required Prepare the slim mask for the first modalities - SUBJECT:
@@ -310,12 +310,12 @@ def non_rigid_propagator(sp):
         if sp.propagation_controller['N_rigid_alignment']:
             print('Non-rigid alignment, subject {}'.format(sj))
             # Input
-            target_mod = pfi_target_mod
-            target_mask = pfi_target_reg_mask
+            target_mod       = pfi_target_mod
+            target_mask      = pfi_target_reg_mask
             target_mask_SLIM = pfi_target_reg_mask_SLIM
 
-            moving_mod = pfi_moving_nrigid_sj_mod
-            moving_mask = pfi_moving_nrigid_sj_reg_mask
+            moving_mod       = pfi_moving_nrigid_sj_mod
+            moving_mask      = pfi_moving_nrigid_sj_reg_mask
             moving_mask_SLIM = pfi_moving_nrigid_sj_reg_mask_SLIM
 
             if len(sp.propagation_options['N_rigid_mod_diff_bfc']) > 0:
@@ -393,17 +393,11 @@ def iterative_propagator(sp):
     # --  NON RIGID  --
     num_nrigid_modalities = len(sp.propagation_options['N_rigid_modalities'])
 
-    suffix_reg = '{}_on_target_{}'.format(sj, sp.target_name)
-
     if num_nrigid_modalities > 0:
         non_rigid_propagator(sp)
-        resulting_segmentations_pfi_list = [
-            jph(pfo_tmp, 'segm_moving_nrigid_warp_{}.nii.gz').format()
-            for sj in sp.atlas_list_charts_names]
+        resulting_segmentations_pfi_list = [jph(pfo_tmp, 'segm_moving_nrigid_warp_{0}_on_target_{1}.nii.gz').format(sj, sp.target_name) for sj in sp.atlas_list_charts_names]
     else:
-        resulting_segmentations_pfi_list = [
-            jph(pfo_tmp, 'segm_moving_aff_warp_{}.nii.gz').format(suffix_reg)
-            for sj in sp.atlas_list_charts_names]
+        resulting_segmentations_pfi_list = [jph(pfo_tmp, 'segm_moving_aff_warp_{0}_on_target_{1}.nii.gz').format(sj, sp.target_name) for sj in sp.atlas_list_charts_names]
 
     # -- SMOOTHING RESULTING SEGMENTATION --
     if sp.propagation_options['Final_smoothing_factor'] > 0 and sp.propagation_controller['Smooth_results']:
