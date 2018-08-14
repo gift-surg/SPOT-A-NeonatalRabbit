@@ -129,7 +129,7 @@ def affine_propagator(sp):
             if not list_modalities:
                 pfi_moving_sj_reg_mask_mod = jph(pfo_sj_masks, '{0}_{1}.nii.gz'.format(sj, sp.arch_suffix_masks[1]))
                 assert os.path.exists(pfi_moving_sj_reg_mask_mod), pfi_moving_sj_reg_mask_mod
-                pfi_moving_sj_on_target_aff_reg_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{0}_{1}.nii.gz'.format(sj, sp.arch_suffix_masks[1]))
+                pfi_moving_sj_on_target_aff_reg_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{0}_{1}.nii.gz'.format(suffix_reg, sp.arch_suffix_masks[1]))
                 cmd = 'reg_resample -ref {0} -flo {1} -trans {2} -res {3} -inter 0 '.format(
                         pfi_target_mod, pfi_moving_sj_reg_mask,
                         pfi_moving_sj_on_target_aff_trans, pfi_moving_sj_on_target_aff_reg_mask_warp)
@@ -147,7 +147,7 @@ def affine_propagator(sp):
 
                 pfi_moving_sj_reg_mask_mod = jph(pfo_sj_masks, '{0}_{1}.nii.gz'.format(sj, sp.arch_suffix_masks[1]))
                 assert os.path.exists(pfi_moving_sj_reg_mask_mod), pfi_moving_sj_reg_mask_mod
-                pfi_moving_sj_on_target_aff_reg_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{0}_{1}.nii.gz'.format(sj, sp.arch_suffix_masks[1]))
+                pfi_moving_sj_on_target_aff_reg_mask_warp = jph(pfo_tmp, 'moving_aff_warp_{0}_{1}.nii.gz'.format(suffix_reg, sp.arch_suffix_masks[1]))
                 cmd = 'reg_resample -ref {0} -flo {1} -trans {2} -res {3} -inter 0 '.format(
                     pfi_target_mod, pfi_moving_sj_reg_mask,
                     pfi_moving_sj_on_target_aff_trans, pfi_moving_sj_on_target_aff_reg_mask_warp)
@@ -392,14 +392,17 @@ def iterative_propagator(sp):
 
     # --  NON RIGID  --
     num_nrigid_modalities = len(sp.propagation_options['N_rigid_modalities'])
+
+    suffix_reg = '{}_on_target_{}'.format(sj, sp.target_name)
+
     if num_nrigid_modalities > 0:
         non_rigid_propagator(sp)
         resulting_segmentations_pfi_list = [
-            jph(pfo_tmp, 'segm_moving_nrigid_warp_{0}_on_target_{1}.nii.gz').format(sj, sp.target_name)
+            jph(pfo_tmp, 'segm_moving_nrigid_warp_{}.nii.gz').format()
             for sj in sp.atlas_list_charts_names]
     else:
         resulting_segmentations_pfi_list = [
-            jph(pfo_tmp, 'segm_moving_aff_warp_{0}_on_target_{1}.nii.gz').format(sj, sp.target_name)
+            jph(pfo_tmp, 'segm_moving_aff_warp_{}.nii.gz').format(suffix_reg)
             for sj in sp.atlas_list_charts_names]
 
     # -- SMOOTHING RESULTING SEGMENTATION --
