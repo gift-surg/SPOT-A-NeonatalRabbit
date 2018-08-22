@@ -1,8 +1,8 @@
 import os
 from os.path import join as jph
 
-from LABelsToolkit.tools.aux_methods.utils import print_and_run
-from LABelsToolkit.tools.aux_methods.sanity_checks import check_path_validity
+from nilabel.tools.aux_methods.utils import print_and_run
+from nilabel.tools.aux_methods.sanity_checks import check_path_validity
 
 
 def fuser(sp):

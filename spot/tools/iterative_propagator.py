@@ -13,7 +13,7 @@ from os.path import join as jph
 
 from spot.tools import utils
 
-from LABelsToolkit.tools.aux_methods.utils import print_and_run
+from nilabel.tools.aux_methods.utils import print_and_run
 
 
 def affine_propagator(sp):

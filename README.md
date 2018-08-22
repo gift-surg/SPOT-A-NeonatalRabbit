@@ -31,7 +31,7 @@ starting point framework to automate general segmentation propagation and label 
 + Requirements
     - Python 2 (**Python 2 only** for the current release)
     - Libraries in the textfile [requirements.txt][requirementstxt]
-    - [LABelsToolkit][labelstoolkit]
+    - [LABelsToolkit][labelstoolkit] (now called Nilabel, soon pip-installable)
     - [NiftyReg][niftyreg] 
     - [NiftySeg][niftyseg] 
     - [NifTK][niftk] (only if the differential bias field correction is used in the non-rigid registration)
