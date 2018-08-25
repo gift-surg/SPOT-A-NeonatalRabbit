@@ -2,9 +2,10 @@ import os
 import nibabel as nib
 import logging
 
-from nilabel.tools.aux_methods.utils import print_and_run
-from nilabel.tools.image_shape_manipulations.merger import substitute_volume_at_timepoint
-from nilabel.main import Nilabel as NiL
+import nilabels as nis
+from nilabels.tools.aux_methods.utils import print_and_run
+from nilabels.tools.image_shape_manipulations.merger import substitute_volume_at_timepoint
+
 
 def substitute_volume_at_timepoint_by_path(pfi_im_input_4d, pfi_im_input_3d, timepoint, pfi_output):
     im_input_4d = nib.load(pfi_im_input_4d)
@@ -69,8 +70,8 @@ def prepare_slim_mask_from_path_to_stack(pfi_target_reg_mask_input, pfi_brain_ma
     :param pfi_target_reg_mask_output:
     :return:
     """
-    lab = NiL()
-    lab.manipulate_shape.cut_4d_volume_with_a_1_slice_mask(pfi_target_reg_mask_input, pfi_brain_mask, pfi_target_reg_mask_output)
+    nis_app = nis.App()
+    nis_app.manipulate_shape.cut_4d_volume_with_a_1_slice_mask(pfi_target_reg_mask_input, pfi_brain_mask, pfi_target_reg_mask_output)
 
 
 def create_log(pfo_where_to_save, log_name='log.txt'):

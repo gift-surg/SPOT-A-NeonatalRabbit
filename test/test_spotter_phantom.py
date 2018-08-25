@@ -18,10 +18,10 @@ from nose.tools import assert_raises
 from spot.tools.system_parameters import bfc_corrector_cmd
 from spot.spotter import SpotDS
 
-from nilabel.tools.phantoms_generator.generate_phantom_multi_atlas import generate_multi_atlas_at_folder, \
+from nilabels.tools.phantoms_generator.generate_phantom_multi_atlas import generate_multi_atlas_at_folder, \
     generate_atlas_at_folder
 
-from nilabel.tools.caliber.distances import global_dice_score
+from nilabels.tools.caliber.distances import global_dice_score
 
 
 # parameters

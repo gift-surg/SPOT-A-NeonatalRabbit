@@ -1,3 +1,4 @@
 nibabel==2.1.0
 nose==1.3.7
 setuptools==30.1.0
+nilabels==1.0.0dev

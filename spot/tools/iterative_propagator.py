@@ -13,7 +13,7 @@ from os.path import join as jph
 
 from spot.tools import utils
 
-from nilabel.tools.aux_methods.utils import print_and_run
+from nilabels.tools.aux_methods.utils import print_and_run
 
 
 def affine_propagator(sp):
@@ -219,8 +219,8 @@ def non_rigid_propagator(sp):
         suffix_reg = '{}_on_target_{}'.format(sj, sp.target_name)
         moving_suffix_mask = sp.arch_suffix_masks[sp.propagation_options['N_reg_mask_moving']]
         # Output:
-        pfi_moving_nrigid_sj_mod = jph(pfo_tmp, 'moving_nrigid_{}_mod.nii.gz'.format(suffix_reg))
-        pfi_moving_nrigid_sj_reg_mask = jph(pfo_tmp, 'moving_nrigid_{}_{}.nii.gz'.format(suffix_reg, moving_suffix_mask))
+        pfi_moving_nrigid_sj_mod           = jph(pfo_tmp, 'moving_nrigid_{}_mod.nii.gz'.format(suffix_reg))
+        pfi_moving_nrigid_sj_reg_mask      = jph(pfo_tmp, 'moving_nrigid_{}_{}.nii.gz'.format(suffix_reg, moving_suffix_mask))
         pfi_moving_nrigid_sj_reg_mask_SLIM = jph(pfo_tmp, 'moving_nrigid_{0}_{1}_SLIM.nii.gz'.format(sj, sp.arch_suffix_masks[2]))
         # Modalities:
         # -- warp not yet warped sj modalities if any.
@@ -240,6 +240,11 @@ def non_rigid_propagator(sp):
             cmd = 'cp {} {}'.format(pfi_moving_sj_on_target_aff_warp, pfi_moving_nrigid_sj_mod)
             print_and_run(cmd)
 
+            pfi_moving_sj_on_target_aff_warp_mask = jph(pfo_tmp, 'moving_aff_warp_{}_{}.nii.gz'.format(suffix_reg, moving_suffix_mask))
+            assert os.path.exists(pfi_moving_sj_on_target_aff_warp)
+            cmd = 'cp {} {}'.format(pfi_moving_sj_on_target_aff_warp_mask, pfi_moving_nrigid_sj_reg_mask)
+            print_and_run(cmd)
+
         # Masks: are all already warped form the affine step - create the stack
         # if not sp.propagation_options['N_rigid_reg_masks']:
         #     pfi_sj_list_reg_masks = [jph(pfo_tmp, 'moving_aff_warp_{0}_{1}.nii.gz'.format(sj, sp.arch_suffix_masks[1])) for _ in range(num_modalities)]
@@ -256,7 +261,7 @@ def non_rigid_propagator(sp):
 
         if len(sp.propagation_options['N_rigid_mod_diff_bfc']) > 0 and sp.propagation_controller['Get_differential_BFC']:
             # Final output:
-            pfi_target_mod_BFC = jph(pfo_tmp, 'target_nrigid_{}_mod_BFC.nii.gz'.format(sp.target_name))
+            pfi_target_mod_BFC        = jph(pfo_tmp, 'target_nrigid_{}_mod_BFC.nii.gz'.format(sp.target_name))
             pfi_moving_nrigid_mod_BFC = jph(pfo_tmp, 'moving_nrigid_{}_mod_BFC.nii.gz'.format(suffix_reg))
             # Copy non-bfc as output to be modified
             cmd = 'cp {} {}'.format(pfi_target_mod, pfi_target_mod_BFC)
@@ -295,7 +300,7 @@ def non_rigid_propagator(sp):
                 utils.get_timepoint_by_path(pfi_moving_aff_mask, timepoint, pfi_bfc_moving_reg_mask_slice)
 
                 # Output
-                pfi_diff_bfc_target = jph(pfo_tmp, 'bfc_{0}.nii.gz'.format(sp.target_name))
+                pfi_diff_bfc_target  = jph(pfo_tmp, 'bfc_{0}.nii.gz'.format(sp.target_name))
                 pfi_diff_bfc_subject = jph(pfo_tmp, 'bfc_{0}.nii.gz'.format(suffix_reg))
 
                 cmd = sp.bfc_corrector_cmd + ' {0} {1} {2} {3} {4} {5} '.format(
