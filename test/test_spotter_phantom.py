@@ -18,8 +18,7 @@ from nose.tools import assert_raises
 from spot.tools.system_parameters import bfc_corrector_cmd
 from spot.spotter import SpotDS
 
-from nilabels.tools.phantoms_generator.generate_phantom_multi_atlas import generate_multi_atlas_at_folder, \
-    generate_atlas_at_folder
+from DummyForMRI.generators import generate_atlas, generate_multi_atlas
 
 from nilabels.tools.caliber.distances import global_dice_score
 
@@ -42,10 +41,10 @@ def generate_phantom_dataset(path_dir):
         os.system('mkdir {}'.format(path_dir))
         os.system('mkdir {}'.format(jph(path_dir, 'MultiAtlas')))
         os.system('mkdir {}'.format(jph(path_dir, 'Targets')))
-        generate_multi_atlas_at_folder(jph(path_dir, 'MultiAtlas'), number_of_subjects=N,
+        generate_multi_atlas(jph(path_dir, 'MultiAtlas'), number_of_subjects=N,
                                        multi_atlas_root_name=MULTI_ATLAS_NAME_PREFIX,
                                        randomness_shape=RS, randomness_noise=RN)
-        generate_atlas_at_folder(jph(path_dir, 'Targets'), atlas_name='{}01'.format(TARGET_NAME_SUFFIX),
+        generate_atlas(jph(path_dir, 'Targets'), atlas_name='{}01'.format(TARGET_NAME_SUFFIX),
                                  randomness_shape=RS, randomness_noise=RN)
 
 
