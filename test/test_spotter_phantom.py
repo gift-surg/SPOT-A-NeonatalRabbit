@@ -47,6 +47,18 @@ def generate_phantom_dataset(path_dir):
                                  randomness_shape=RS, randomness_noise=RN)
 
 
+def test_lirbraries_are_available():
+    try: 
+        subprocess.run(['reg -h']) 
+    except FileNotFoundError: 
+        print('Please install niftyreg')
+        assert False
+    try: 
+        subprocess.run(['seg -h']) 
+    except FileNotFoundError: 
+        print('Please install niftyseg')
+        assert False
+
 def test_standard_experiment_with_phantom():
 
     global PATH_DIR
