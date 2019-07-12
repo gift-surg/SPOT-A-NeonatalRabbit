@@ -78,7 +78,7 @@ def create_log(pfo_where_to_save, log_name='log.txt'):
 
     if not os.path.exists(pfo_where_to_save):
         here = os.path.dirname(os.path.abspath(__file__))
-        w = '{} does not exist. Log file created in the code root'.format(pfo_where_to_save, here)
+        w = '{} does not exist. Log file created in the code root {}'.format(pfo_where_to_save, here)
         print(w)
         pfo_where_to_save = here
 

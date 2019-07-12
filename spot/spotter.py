@@ -128,7 +128,7 @@ class SpotDS(object):
                     if mask_id == 2 and \
                             (self.propagation_options['N_rigid_slim_reg_mask'] or
                              self.propagation_options['Affine_slim_reg_mask']):
-                        msg += '\nFile with brain_mask for the slim mask creation required but not present. \n'.format(p)
+                        msg += '\nFile with brain_mask for the slim mask creation {} required but not present. \n'.format(p)
             p = jph(self.atlas_pfo, chart_name, self.arch_segmentations_name_folder,
                     '{0}_{1}.nii.gz'.format(chart_name, self.atlas_segmentation_suffix))
             if not os.path.exists(p):

@@ -1,10 +1,15 @@
+.idea
+.vscode
+
+.pytest_cache
 __pycache__
 *.pyc
-*.png
-.idea
+
 *.npy
 *_old.py
 z_*
+*.png
+
 TODO.txt
 opener.py
 z_pipeline_draft

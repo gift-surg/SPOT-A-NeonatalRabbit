@@ -12,8 +12,7 @@ import os
 from os.path import join as jph
 from collections import OrderedDict
 import nibabel as nib
-
-from nose.tools import assert_raises
+import numpy.testing as npt
 
 from spot.tools.system_parameters import bfc_corrector_cmd
 from spot.spotter import SpotDS
@@ -131,7 +130,7 @@ def test_standard_experiments_with_phantom_broken_input_tag():
 
     target_name = '{}01'.format(TARGET_NAME_SUFFIX)
 
-    with assert_raises(TypeError):
+    with npt.assert_raises(TypeError):
         SpotDS(atlas_pfo=PATH_MULTI_ATLAS,
                target_pfo=PATH_TARGETS,
                target_name=target_name,
@@ -143,7 +142,7 @@ def test_standard_experiments_with_phantom_broken_input_tag():
                      parameters_tag='')  # error here
 
     spot_sj.spot_on_target_initialise()
-    with assert_raises(IOError):
+    with npt.assert_raises(IOError):
         spot_sj.propagate()
 
     spot_sj = SpotDS(atlas_pfo=PATH_MULTI_ATLAS,
@@ -152,6 +151,5 @@ def test_standard_experiments_with_phantom_broken_input_tag():
                      parameters_tag='a_b')  # error here
 
     spot_sj.spot_on_target_initialise()
-    with assert_raises(IOError):
+    with npt.assert_raises(IOError):
         spot_sj.propagate()
-

@@ -70,7 +70,7 @@ def fuser(sp):
                         pfi_target,
                         pfi_4d_stack_warp_mod)
                 else:
-                    cmd_steps = 'seg_LabFusion -in {0} -out {1} -STEPS {2} {3} {4} {5} -MRF_beta {5}  -prop_update '.\
+                    cmd_steps = 'seg_LabFusion -in {0} -out {1} -STEPS {2} {3} {4} {5} -MRF_beta {6}  -prop_update '.\
                         format(pfi_4d_stack_warp_segm,
                                pfi_output_STEPS,
                                k,

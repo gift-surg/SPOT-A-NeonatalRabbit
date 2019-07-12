@@ -1,8 +1,8 @@
 import os
 from os.path import join as jph
 
-from tools.iterative_propagator import iterative_propagator
-from tools.utils import stack_a_list_of_images_from_list_pfi, get_list_pfi_images_3d_from_list_images_4d
+from spot.tools.iterative_propagator import iterative_propagator
+from spot.tools.utils import stack_a_list_of_images_from_list_pfi, get_list_pfi_images_3d_from_list_images_4d
 
 
 def propagator(sp):

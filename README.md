@@ -31,10 +31,10 @@ starting point framework to automate general segmentation propagation and label 
 + Requirements
     - Python 2 (**Python 2 only** for the current release)
     - Libraries in the textfile [requirements.txt][requirementstxt]
-    - [LABelsToolkit][labelstoolkit] (now called Nilabel, soon pip-installable)
-    - [NiftyReg][niftyreg] 
-    - [NiftySeg][niftyseg] 
-    - [NifTK][niftk] (only if the differential bias field correction is used in the non-rigid registration)
+    - [NiftyReg][niftyreg] C++ library
+    - [NiftySeg][niftyseg] C++ library
+    - [NifTK][niftk] (only if the differential bias field correction required for the non-rigid registration step)
+    - [DummyForMRI][DummyForMRI] to create the dummy dataset for running the tests.
 
 + Installation
     - We recommend to install the software in development mode, inside a python [virtual-environment][virtualenvironment] with the following commands.
@@ -50,8 +50,8 @@ starting point framework to automate general segmentation propagation and label 
     - See the [examples folder][examplesfolder] and the [wiki page][wikipage]
 
 ## Code testing
-+ Unit testing with [nosetest][nosetest]. 
-Type `nosetests` in a terminal at the cloned repository.
++ Unit testing with [pytest][pytest]. 
+Type `pytest` in a terminal at the cloned repository with the installed libraries.
 + Tests are based on a lightweight multi-atlas with analogous structure than the Neonatal Brain Rabbit generated with [LABelsToolkit][labelstoolkit]. 
 The first test may take some minutes to create the phantom multi-atlas.
 
@@ -86,6 +86,7 @@ feature requests and code re-factoring and re-styling.
 [contributionguideline]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/CONTRIBUTE.md
 [mrira]: https://github.com/gift-surg/MRImultiAtlasForNeonatalRabbitBrain
 [licence]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/blob/master/LICENCE.txt
-[nosetest]: http://pythontesting.net/framework/nose/nose-introduction/
+[pytest]: https://docs.pytest.org/en/latest/
 [virtualenvironment]: http://docs.python-guide.org/en/latest/dev/virtualenvs/
 [wikipage]: https://github.com/gift-surg/SPOT-A-NeonatalRabbit/wiki
+[DummyForMRI]: https://github.com/SebastianoF/DummyForMRI

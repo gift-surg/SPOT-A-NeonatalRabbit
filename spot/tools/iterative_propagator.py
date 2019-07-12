@@ -16,6 +16,9 @@ from spot.tools import utils
 from nilabels.tools.aux_methods.utils import print_and_run
 
 
+def cmp(a, b):
+    return (a > b) - (a < b) 
+
 def affine_propagator(sp):
     """
     Core of the propagation - affine part
