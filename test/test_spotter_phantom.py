@@ -13,6 +13,7 @@ from os.path import join as jph
 from collections import OrderedDict
 import nibabel as nib
 import numpy.testing as npt
+import subprocess
 
 from spot.tools.system_parameters import bfc_corrector_cmd
 from spot.spotter import SpotDS
